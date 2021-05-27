@@ -62,9 +62,11 @@ export default function Navbar() {
             Hola Invitado
           </Typography>
           <div className={classes.button}>
-            <Button variant='outlined'>
-              <strong>Sing In</strong>
-            </Button>
+            <Link to='signin'>
+              <Button variant='outlined'>
+                <strong>Sing In</strong>
+              </Button>
+            </Link>
             <Link to='checkout'>
               <IconButton aria-label='show cart items' color='inherit'>
                 <Badge badgeContent={cart?.length} color='secondary'>
