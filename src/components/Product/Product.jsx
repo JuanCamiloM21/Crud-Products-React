@@ -10,12 +10,12 @@ import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { AddShoppingCart } from '@material-ui/icons';
 import accounting from 'accounting';
 import { actions } from '../../reducers/reducer';
 import { useStateValue } from '../../context/StateProvider';
+import EditProduct from '../EditProduct/EditProduct';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,12 +41,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Product({
-  product: { id, name, productType, image, price, rating, description },
+  product: { id, name, price, description, stock },
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
-  const [{ cart }, dispatch] = useStateValue();
+  const [{ user }, dispatch] = useStateValue();
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -58,11 +58,9 @@ export default function Product({
       payload: {
         id,
         name,
-        productType,
-        image,
         price,
-        rating,
         description,
+        stock,
       },
     });
   };
@@ -87,23 +85,33 @@ export default function Product({
         title={name}
         subheader={name}
       />
-      <CardMedia className={classes.media} image={image} title='Nike shoes' />
+      <CardMedia
+        className={classes.media}
+        image='https://s2.r29static.com/bin/entry/ebd/0,675,2000,1050/x,80/1929471/image.jpg'
+        title='Nike shoes'
+      />
       <CardContent>
         <Typography variant='body2' color='textSecondary' component='p'>
-          {productType}
+          <h5>Stock: {stock}</h5>
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label='add to cart' onClick={addToCart}>
           <AddShoppingCart fontSize='large' />
         </IconButton>
-        <IconButton aria-label='share'>
+        {/* <IconButton aria-label='share'>
           {Array(rating)
             .fill()
             .map((_, i) => (
               <p>&#11088;</p>
             ))}
-        </IconButton>
+        </IconButton> */}
+        {user && (
+          // <IconButton>
+          //   <EditIcon fontSize='large' />
+          // </IconButton>
+          <EditProduct />
+        )}
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,

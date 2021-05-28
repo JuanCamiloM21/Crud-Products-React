@@ -6,7 +6,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/Delete';
 import accounting from 'accounting';
 import { IconButton } from '@material-ui/core';
@@ -39,11 +38,11 @@ export default function CheckoutCard({
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [{ cart }, dispatch] = useStateValue();
+  const [dispatch] = useStateValue();
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   const deleteToCart = () =>
     dispatch({

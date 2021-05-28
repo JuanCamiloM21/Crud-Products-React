@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { auth } from '../../firebase';
 
 function Copyright() {
   return (
@@ -49,6 +50,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const history = useHistory();
+
+  const signin = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((auth) => history.push('/'))
+      .catch((err) => alert(err.message));
+  };
 
   return (
     <Container component='main' maxWidth='xs'>
@@ -62,6 +74,8 @@ export default function SignIn() {
         </Typography>
         <form className={classes.form} noValidate>
           <TextField
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -73,6 +87,8 @@ export default function SignIn() {
             autoFocus
           />
           <TextField
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             variant='outlined'
             margin='normal'
             required
@@ -93,6 +109,7 @@ export default function SignIn() {
             variant='contained'
             color='primary'
             className={classes.submit}
+            onClick={signin}
           >
             Sign In
           </Button>

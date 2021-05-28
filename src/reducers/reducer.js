@@ -1,10 +1,13 @@
 export const initialState = {
   cart: [],
+  user: null,
 };
 
 export const actions = {
   ADD_TO_CART: 'ADD_TO_CART',
   DELETE_TO_CART: 'DELETE_TO_CART',
+  SET_USER: 'SET_USER',
+  EMPTY_CART: 'EMPTY_CART',
 };
 
 export const getTotalCart = (cart) => {
@@ -12,7 +15,6 @@ export const getTotalCart = (cart) => {
 };
 
 const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case 'ADD_TO_CART':
       return {
@@ -30,6 +32,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         cart: newCart,
+      };
+    case 'SET_USER':
+      return {
+        ...state,
+        user: action.user,
+      };
+    case 'EMPTY_CART':
+      return {
+        ...state,
+        cart: action.cart,
       };
     default:
       return state;
