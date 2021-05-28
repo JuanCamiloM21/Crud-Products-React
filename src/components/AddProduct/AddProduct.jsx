@@ -3,15 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import {
-  Box,
-  Button,
-  Input,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-  TextField,
-} from '@material-ui/core';
+import { Box, Button, TextField } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -63,6 +55,7 @@ export default function AddProduct({ addOrEditProduct }) {
     e.preventDefault();
     addOrEditProduct(values);
     setValues({ ...initialStateValues });
+    handleClose();
   };
   return (
     <div>

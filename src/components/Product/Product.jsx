@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -11,11 +11,13 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { AddShoppingCart } from '@material-ui/icons';
+import { AddShoppingCart, Delete } from '@material-ui/icons';
 import accounting from 'accounting';
 import { actions } from '../../reducers/reducer';
 import { useStateValue } from '../../context/StateProvider';
 import EditProduct from '../EditProduct/EditProduct';
+import { db } from '../../firebase';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,15 +43,35 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Product({
-  product: { id, name, price, description, stock },
+  product: { id, name, price, description, stock, addOrEditProduct, products },
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const [{ user }, dispatch] = useStateValue();
 
+  const [currentId, setCurrentId] = useState('');
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const onDeleteProduct = async (id) => {
+    window.confirm('Are you sure yo want to delete this product?') &&
+      (await db.collection('products').doc(id).delete());
+    toast('Product deleted', {
+      type: 'error',
+      autoClose: 2000,
+    });
+  };
+
+  const EditAProduct = async (dataProduct) => {
+    await db.collection('products').doc(currentId).update(dataProduct);
+    toast('Product Updated successfully', {
+      type: 'info',
+      autoClose: 2000,
+    });
+    setCurrentId('');
   };
 
   const addToCart = () => {
@@ -110,7 +132,14 @@ export default function Product({
           // <IconButton>
           //   <EditIcon fontSize='large' />
           // </IconButton>
-          <EditProduct />
+          <>
+            <IconButton onClick={() => setCurrentId(id)}>
+              <EditProduct {...{ EditAProduct, currentId, products }} />
+            </IconButton>
+            <IconButton onClick={() => onDeleteProduct(id)}>
+              <Delete fontSize='large' />
+            </IconButton>
+          </>
         )}
         <IconButton
           className={clsx(classes.expand, {

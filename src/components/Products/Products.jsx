@@ -7,6 +7,7 @@ import { Box } from '@material-ui/core';
 import { useStateValue } from '../../context/StateProvider';
 import AddProduct from '../AddProduct/AddProduct';
 import { db } from '../../firebase';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +23,10 @@ export default function Products() {
 
   const addOrEditProduct = async (dataProduct) => {
     await db.collection('products').doc().set(dataProduct);
-    console.log('New product add');
+    toast('New product add', {
+      type: 'success',
+      autoClose: 2000,
+    });
   };
 
   const getProducts = () => {
@@ -34,7 +38,6 @@ export default function Products() {
       setProducts(docs);
     });
   };
-  console.log(products);
 
   useEffect(() => {
     getProducts();
@@ -50,7 +53,12 @@ export default function Products() {
       <Grid container spacing={2}>
         {products.map((item) => (
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <Product key={item.id} product={item} />
+            <Product
+              key={item.id}
+              product={item}
+              addOrEditProduct={addOrEditProduct}
+              products={products}
+            />
           </Grid>
         ))}
       </Grid>

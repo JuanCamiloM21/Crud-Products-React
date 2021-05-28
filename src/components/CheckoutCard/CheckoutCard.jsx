@@ -38,7 +38,7 @@ export default function CheckoutCard({
 }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [dispatch] = useStateValue();
+  const [{ cart }, dispatch] = useStateValue();
 
   // const handleExpandClick = () => {
   //   setExpanded(!expanded);
@@ -70,15 +70,19 @@ export default function CheckoutCard({
         title={name}
         subheader={name}
       />
-      <CardMedia className={classes.media} image={image} title='Nike shoes' />
+      <CardMedia
+        className={classes.media}
+        image='https://s2.r29static.com/bin/entry/ebd/0,675,2000,1050/x,80/1929471/image.jpg'
+        title='Nike shoes'
+      />
       <CardActions disableSpacing className={classes.cardActions}>
-        <div className={classes.cartRating}>
+        {/* <div className={classes.cartRating}>
           {Array(rating)
             .fill()
             .map((_, i) => (
               <p>&#11088;</p>
             ))}
-        </div>
+        </div> */}
         <IconButton>
           <DeleteIcon fontSize='large' onClick={deleteToCart} />
         </IconButton>

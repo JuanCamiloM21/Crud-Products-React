@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 import { auth } from '../firebase';
 import { actions } from '../reducers/reducer';
 import { useStateValue } from '../context/StateProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -34,6 +36,7 @@ function App() {
           <Route path='/checkout' component={Checkout} />
           <Route path='/' component={Home} />
         </Switch>
+        <ToastContainer />
       </div>
     </BrowserRouter>
   );
