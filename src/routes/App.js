@@ -1,7 +1,6 @@
 import Home from '../pages/Home/Home';
 import Checkout from '../pages/Checkout/Checkout';
 import Navbar from '../components/Navbar/Navbar';
-import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SignIn from '../pages/SignIn/SignIn';
 import SignUp from '../pages/SignUp/SignUp';

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './routes/App';
-import reportWebVitals from './reportWebVitals';
 import { StateProvider } from './context/StateProvider';
 import reducer, { initialState } from './reducers/reducer';
 import './firebase';
@@ -13,12 +12,9 @@ const theme = createMuiTheme({
     primary: {
       main: '#1976d2',
     },
-    secondary: {
-      main: '#f44336',
-    },
-    cart: {
-      main: '#ffffff',
-    },
+    // secondary: {
+    //   main: '#f44336',
+    // },
   },
 });
 
@@ -32,5 +28,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-reportWebVitals();

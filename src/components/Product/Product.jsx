@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
+  icons: {
+    marginLeft: 'auto',
+  },
   expandOpen: {
     transform: 'rotate(180deg)',
   },
@@ -129,14 +132,17 @@ export default function Product({
             ))}
         </IconButton> */}
         {user && (
-          // <IconButton>
-          //   <EditIcon fontSize='large' />
-          // </IconButton>
           <>
-            <IconButton onClick={() => setCurrentId(id)}>
+            <IconButton
+              onClick={() => setCurrentId(id)}
+              className={classes.icons}
+            >
               <EditProduct {...{ EditAProduct, currentId, products }} />
             </IconButton>
-            <IconButton onClick={() => onDeleteProduct(id)}>
+            <IconButton
+              onClick={() => onDeleteProduct(id)}
+              className={classes.icons}
+            >
               <Delete fontSize='large' />
             </IconButton>
           </>

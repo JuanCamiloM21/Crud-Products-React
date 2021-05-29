@@ -75,17 +75,9 @@ export default function AddProduct({ EditAProduct, currentId, products }) {
 
   return (
     <div>
-      {/* <Button
-        variant='contained'
-        color='primary'
-        // type='button'
-        className={classes.button}
-        
-      > */}
       <IconButton onClick={handleOpen}>
         <EditIcon fontSize='large' />
       </IconButton>
-      {/* </Button> */}
       <Modal
         aria-labelledby='transition-modal-title'
         aria-describedby='transition-modal-description'
@@ -101,9 +93,6 @@ export default function AddProduct({ EditAProduct, currentId, products }) {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id='transition-modal-title'>Edit Product</h2>
-            {/* <p id='transition-modal-description'>
-              react-transition-group animates me.
-            </p> */}
             <form onSubmit={handleSubmit}>
               <Box mt={2}>
                 <TextField

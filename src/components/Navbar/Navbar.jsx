@@ -11,6 +11,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useStateValue } from '../../context/StateProvider';
 import { auth } from '../../firebase';
 import { actions } from '../../reducers/reducer';
+import { blue, blueGrey, green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,12 +82,15 @@ export default function Navbar() {
           </Typography>
           <div className={classes.button}>
             <Link to='signin'>
-              <Button variant='outlined' onClick={handleAuth}>
+              <Button variant='contained' onClick={handleAuth}>
                 <strong>{user ? 'Sign Out' : 'Sing In'}</strong>
               </Button>
             </Link>
             <Link to='checkout'>
-              <IconButton aria-label='show cart items' color='inherit'>
+              <IconButton
+                aria-label='show cart items'
+                style={{ color: blueGrey[100] }}
+              >
                 <Badge badgeContent={cart?.length} color='secondary'>
                   <ShoppingCart fontSize='large' />
                 </Badge>
