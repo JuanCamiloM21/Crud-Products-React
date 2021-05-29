@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
-import { auth } from '../../firebase';
+import { auth, providerGoogle, providerFacebook } from '../../firebase';
 
 function Copyright() {
   return (
@@ -60,6 +60,22 @@ export default function SignIn() {
       .signInWithEmailAndPassword(email, password)
       .then((auth) => history.push('/'))
       .catch((err) => alert(err.message));
+  };
+
+  const signinGoogle = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(providerGoogle)
+      .then((result) => history.push('/'))
+      .catch((err) => console.log(err.message));
+  };
+
+  const signinFacebook = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(providerFacebook)
+      .then((result) => history.push('/'))
+      .catch((err) => console.log(err.message));
   };
 
   return (
@@ -113,6 +129,28 @@ export default function SignIn() {
           >
             Sign In
           </Button>
+
+          <Box display='flex' justifyContent='space-around'>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+              onClick={signinGoogle}
+            >
+              Google
+            </Button>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+              onClick={signinFacebook}
+            >
+              Facebook
+            </Button>
+          </Box>
+
           <Grid container>
             <Grid item xs>
               <Link href='#' variant='body2'>
